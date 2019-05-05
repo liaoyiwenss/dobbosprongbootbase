@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.NewsMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.News" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, title, content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from news
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+    <select id="selectnewsList" resultType="net.wanho.pojo.News">
+      select
+      <include refid="Base_Column_List" />
+      from news
+        where logicaldelete=0
+        <if test="createtime != null" >
+          and createtime
+        </if>
+        <if test="modifytime != null" >
+          and modifytime
+        </if>
+        <if test="title != null" >
+          and title
+        </if>
+        <if test="content != null" >
+          and content
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from news
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.News"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into news (createtime, logicaldelete,
+      modifytime, title, content
+      )
+    values ( now(), 0,
+      #{modifytime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.News"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicaldelete != null" >
+        #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.News" >
+    update news
+    <set >
+      <if test="1==1" >
+        modifytime = now(),
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.News" >
+    update news
+    set modifytime = now(),
+      logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>
