@@ -36,12 +36,7 @@
             <artifactId>common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- 使用Jasper引擎解析JSP -->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
 
         <!-- 使用Jasper引擎解析JSP -->
         <dependency>

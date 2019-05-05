@@ -16,6 +16,7 @@
         <module>common-api</module>
         <module>server-provider</module>
         <module>server-consumer</module>
+        <module>common-web</module>
     </modules>
 
     <parent>
