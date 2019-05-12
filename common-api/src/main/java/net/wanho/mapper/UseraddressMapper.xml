@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.UseraddressMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.Useraddress" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="isdefault" property="isdefault" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, userid, address, remark, isdefault
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from useraddress
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+    <select id="queryaddressbyuserId" resultType="net.wanho.pojo.Useraddress">
+      select
+      <include refid="Base_Column_List" />
+      from useraddress
+      where userid = #{userid,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from useraddress
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.Useraddress"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into useraddress ( createtime, logicaldelete,
+      modifytime, userid, address, 
+      remark, isdefault)
+    values ( now(), 0,
+      #{modifytime,jdbcType=TIMESTAMP}, #{userid,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isdefault,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.Useraddress"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into useraddress
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isdefault != null" >
+        isdefault,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicaldelete != null" >
+        #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.Useraddress" >
+    update useraddress
+    <set >
+      <if test="1 == 1" >
+        modifytime = now(),
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null" >
+        isdefault = #{isdefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.Useraddress" >
+    update useraddress
+    set modifytime = now(),
+      logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      isdefault = #{isdefault,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>

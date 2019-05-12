@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.Product" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="categorylevel1id" property="categorylevel1id" jdbcType="BIGINT" />
+    <result column="categorylevel2id" property="categorylevel2id" jdbcType="BIGINT" />
+    <result column="categorylevel3id" property="categorylevel3id" jdbcType="BIGINT" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, name, description, price, stock, categorylevel1id, 
+    categorylevel2id, categorylevel3id, filename, isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+  <select id="queryProductbtid" resultType="net.wanho.pojo.Product" parameterType="java.lang.Long" >
+    select
+    *
+    from product
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+    <select id="selectProductbyEntity" resultType="net.wanho.pojo.Product">
+      select
+      <include refid="Base_Column_List" />
+      from product
+     where logicaldelete=0
+    <if test="proname!=null and proname!=''">
+      and name like concat('%',#{proname},'%')
+    </if>
+    <if test="pcid!=null">
+      and  (categorylevel1id=#{pcid}  or  categorylevel2id=#{pcid}  or  categorylevel3id=#{pcid})
+    </if>
+    </select>
+  <select id="queryListProduct" resultType="net.wanho.pojo.Product">
+    select
+      *
+    from product
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.Product"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into product ( createtime, logicaldelete,
+      modifytime, name, description, 
+      price, stock, categorylevel1id, 
+      categorylevel2id, categorylevel3id, filename, 
+      isdelete)
+    values ( now(), 0,
+      #{modifytime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL}, #{stock,jdbcType=INTEGER}, #{categorylevel1id,jdbcType=BIGINT}, 
+      #{categorylevel2id,jdbcType=BIGINT}, #{categorylevel3id,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, 
+      #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.Product"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="categorylevel1id != null" >
+        categorylevel1id,
+      </if>
+      <if test="categorylevel2id != null" >
+        categorylevel2id,
+      </if>
+      <if test="categorylevel3id != null" >
+        categorylevel3id,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicaldelete != null" >
+        #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="categorylevel1id != null" >
+        #{categorylevel1id,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel2id != null" >
+        #{categorylevel2id,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel3id != null" >
+        #{categorylevel3id,jdbcType=BIGINT},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.Product" >
+    update product
+    <set >
+      <if test="1==1" >
+        createtime = now(),
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="categorylevel1id != null" >
+        categorylevel1id = #{categorylevel1id,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel2id != null" >
+        categorylevel2id = #{categorylevel2id,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel3id != null" >
+        categorylevel3id = #{categorylevel3id,jdbcType=BIGINT},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.Product" >
+    update product
+    set modifytime = now(),
+      logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      stock = #{stock,jdbcType=INTEGER},
+      categorylevel1id = #{categorylevel1id,jdbcType=BIGINT},
+      categorylevel2id = #{categorylevel2id,jdbcType=BIGINT},
+      categorylevel3id = #{categorylevel3id,jdbcType=BIGINT},
+      filename = #{filename,jdbcType=VARCHAR},
+      isdelete = #{isdelete,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>

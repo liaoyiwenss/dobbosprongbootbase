@@ -1,14 +1,15 @@
 package net.wanho.mapper;
 
 import net.wanho.mapper.base.BaseMapper;
-import net.wanho.pojo.News;
+import net.wanho.pojo.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface NewsMapper extends BaseMapper<News> {
+public interface UserMapper extends BaseMapper<User> {
 
+    User queryexUser(User user);
 
-    public List<News> selectnewsList();
+    List<User> queryallUser();
 }

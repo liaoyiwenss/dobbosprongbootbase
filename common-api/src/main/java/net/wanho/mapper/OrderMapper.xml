@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.Order" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
+    <result column="useraddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="REAL" />
+    <result column="serialnumber" property="serialnumber" jdbcType="VARCHAR" />
+    <collection property="orderdetaillist" ofType="net.wanho.pojo.Orderdetail" select="net.wanho.mapper.OrderdetailMapper.queryorderdetailbyOrderid" column="tid"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, userid, loginname, useraddress, cost, 
+    serialnumber
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from `order`
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+  <select id="queryorderbyuserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+      <where>
+        <if test="userid!=null">
+          and userid = #{userid,jdbcType=BIGINT}
+        </if>
+      </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `order`
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.Order"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into `order` (createtime, logicaldelete,
+      modifytime, userid, loginname, 
+      useraddress, cost, serialnumber
+      )
+    values (now(), 0,
+      #{modifytime,jdbcType=TIMESTAMP}, #{userid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, 
+      #{useraddress,jdbcType=VARCHAR}, #{cost,jdbcType=REAL}, #{serialnumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.Order"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="loginname != null" >
+        loginname,
+      </if>
+      <if test="useraddress != null" >
+        useraddress,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicaldelete != null" >
+        #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=REAL},
+      </if>
+      <if test="serialnumber != null" >
+        #{serialnumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.Order" >
+    update `order`
+    <set >
+      <if test="1 == 1" >
+        modifytime = now(),
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null" >
+        loginname = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        useraddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=REAL},
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber = #{serialnumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.Order" >
+    update `order`
+    set modifytime = now(),
+      logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=INTEGER},
+      loginname = #{loginname,jdbcType=VARCHAR},
+      useraddress = #{useraddress,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=REAL},
+      serialnumber = #{serialnumber,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>

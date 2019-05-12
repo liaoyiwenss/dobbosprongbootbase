@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.OrderdetailMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.Orderdetail" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="orderid" property="orderid" jdbcType="BIGINT" />
+    <result column="productid" property="productid" jdbcType="BIGINT" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="REAL" />
+    <association property="product" javaType="net.wanho.pojo.Product" column="productid" select="net.wanho.mapper.ProductMapper.queryProductbtid">
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, orderid, productid, quantity, cost
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+    <select id="queryorderdetailbyOrderid" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      select
+      *
+      from orderdetail
+      where orderid = #{orderid,jdbcType=BIGINT}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orderdetail
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.Orderdetail"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into orderdetail ( createtime, logicaldelete,
+      modifytime, orderid, productid, 
+      quantity, cost)
+    values ( now(), 0,
+      #{modifytime,jdbcType=TIMESTAMP}, #{orderid,jdbcType=BIGINT}, #{productid,jdbcType=BIGINT}, 
+      #{quantity,jdbcType=INTEGER}, #{cost,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.Orderdetail"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into orderdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logicaldelete != null" >
+        #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.Orderdetail" >
+    update orderdetail
+    <set >
+      <if test="1 == 1" >
+        modifytime = now(),
+      </if>
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=REAL},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.Orderdetail" >
+    update orderdetail
+    set modifytime = now(),
+      logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      orderid = #{orderid,jdbcType=BIGINT},
+      productid = #{productid,jdbcType=BIGINT},
+      quantity = #{quantity,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=REAL}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>

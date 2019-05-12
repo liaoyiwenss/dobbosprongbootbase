@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.wanho.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="net.wanho.pojo.Permission" >
+    <id column="tid" property="tid" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="logicaldelete" property="logicaldelete" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="permissionname" property="permissionname" jdbcType="VARCHAR" />
+    <result column="ismenu" property="ismenu" jdbcType="BIT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="classname" property="classname" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="menuname" property="menuname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, createtime, logicaldelete, modifytime, permissionname, ismenu, pid, classname,
+    seq, menuname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where tid = #{tid,jdbcType=BIGINT}
+  </select>
+  <select id="selectRoleandPermission" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    *
+    from permission p
+    left join rolepermission rm on p.tid=rm.permissionid
+    where roleid = #{roleid,jdbcType=BIGINT}
+  </select>
+  <select id="selectAllPermission" resultType="map">
+    select
+      tid as id,menuname as name,pid as pId,<include refid="Base_Column_List" />
+    from permission
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from permission
+    where tid = #{tid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.wanho.pojo.Permission"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into permission ( createtime, logicaldelete,
+                             modifytime, permissionname, ismenu,
+                             pid, classname, seq,
+                             menuname)
+    values ( now(),0,
+             #{modifytime,jdbcType=TIMESTAMP}, #{permissionname,jdbcType=VARCHAR}, #{ismenu,jdbcType=BIT},
+             #{pid,jdbcType=BIGINT}, #{classname,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER},
+             #{menuname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.wanho.pojo.Permission"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="1==1" >
+        createtime,
+      </if>
+      <if test="1==1" >
+        logicaldelete,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="permissionname != null" >
+        permissionname,
+      </if>
+      <if test="ismenu != null" >
+        ismenu,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="classname != null" >
+        classname,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="menuname != null" >
+        menuname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="1==1" >
+        now(),
+      </if>
+      <if test="1==1" >
+        0,
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permissionname != null" >
+        #{permissionname,jdbcType=VARCHAR},
+      </if>
+      <if test="ismenu != null" >
+        #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="menuname != null" >
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.wanho.pojo.Permission" >
+    update permission
+    <set >
+      <if test="logicaldelete != null" >
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+      </if>
+      <if test="1==1" >
+        modifytime = now(),
+      </if>
+      <if test="permissionname != null" >
+        permissionname = #{permissionname,jdbcType=VARCHAR},
+      </if>
+      <if test="ismenu != null" >
+        ismenu = #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="classname != null" >
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="menuname != null" >
+        menuname = #{menuname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.wanho.pojo.Permission" >
+    update permission
+    set createtime = #{createtime,jdbcType=TIMESTAMP},
+        logicaldelete = #{logicaldelete,jdbcType=BIGINT},
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+        permissionname = #{permissionname,jdbcType=VARCHAR},
+        ismenu = #{ismenu,jdbcType=BIT},
+        pid = #{pid,jdbcType=BIGINT},
+        classname = #{classname,jdbcType=VARCHAR},
+        seq = #{seq,jdbcType=INTEGER},
+        menuname = #{menuname,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=BIGINT}
+  </update>
+</mapper>
