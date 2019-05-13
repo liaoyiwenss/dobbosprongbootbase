@@ -1,9 +1,9 @@
 package net.wanho.service.impl;
 
-import cc.mrbird.common.api.NewsService;
 import com.alibaba.dubbo.config.annotation.Service;
 import net.wanho.mapper.NewsMapper;
 import net.wanho.pojo.News;
+import net.wanho.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
