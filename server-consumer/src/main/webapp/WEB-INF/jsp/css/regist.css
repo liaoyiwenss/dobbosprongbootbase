@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+
+        #submitBtn{
+            width:141px;
+            height: 51px;
+            border:none;
+            background: transparent  url("../images/button.gif") no-repeat;
+            cursor: pointer;
+        }
+
+        .clear:after{
+
+            content: "";
+            display: block;
+            clear: both;
+        }
+        /*当鼠标放到文本框时，提示文本的样式*/
+        .import_prompt{
+            border:solid 1px #ffcd00;
+            background-color:#ffffda;
+            padding-left:5px;
+            padding-right:5px;
+            line-height:20px;
+            position: relative;
+            font-family: 华文行楷;
+            font-weight: 700;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+        /*当文本框内容不符合要求时，提示文本的样式*/
+        .error_prompt{
+            border:solid 1px #ff3300;
+            background-color:#fff2e5;
+            background-image:url(/easybuy/page/images/li_err.gif);
+            background-repeat:no-repeat;
+            background-position:5px 2px;
+            padding:2px 30px 0px 25px;
+            bottom: 35px;
+            line-height:20px;
+            font-family: 华文行楷;
+            font-weight: 700;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        /*当文本框内容输入正确时，提示文本的样式*/
+        .ok_prompt{
+            border:solid 1px #01be00;
+            background-color:#e6fee4;
+            background-image:url(/easybuy/page/images/li_ok.gif);
+            background-repeat:no-repeat;
+            background-position:5px 2px;
+            padding:2px 30px 0px 25px;
+            bottom: 35px;
+            line-height:20px;
+            font-family: 华文行楷;
+            font-weight: 700;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .redBorder{
+            border:1px solid red;
+        }
+
+        .greenBorder{
+            border:1px solid green;
+        }
+
+
+        .inputs{
+            border:solid 1px #a4c8e0;
+            width:150px;
+            height:15px;
+        }
+

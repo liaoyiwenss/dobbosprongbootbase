@@ -15,11 +15,13 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 
 
 @Configuration
+@Component
 public class ShiroConfig {
 
 	@Bean
