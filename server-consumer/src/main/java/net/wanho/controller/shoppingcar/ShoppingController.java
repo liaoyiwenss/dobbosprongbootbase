@@ -211,8 +211,8 @@ public class ShoppingController {
             order.setUseraddress(address);
             order.setCost((float) cartlist.getSum());
             order.setSerialnumber(UUID.randomUUID().toString());
-            orderService.productOrder(order, cartlist);
-            session.setAttribute("currentOrder", order);
+            Order order1 = orderService.productOrder(order, cartlist);
+            session.setAttribute("currentOrder", order1);
             session.removeAttribute("cartlist");
             return "redirect:/show/settlement3";
 

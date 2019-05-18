@@ -19,7 +19,7 @@
             <tr>
                 <td style="font-size:14px; font-family:'宋体'; padding:10px 0 20px 0; border-bottom:1px solid #b6b6b6;">
                     您选定的配送方式为: <font color="#ff4e00">申通快递</font>； &nbsp; &nbsp;您选定的支付方式为: <font
-                        color="#ff4e00">支付宝</font>； &nbsp; &nbsp;您的应付款金额为: <font color="#ff4e00">￥${currentOrder.cost}</font>
+                        color="#ff4e00"><a href="/goAlipay?orderId=${currentOrder.tid}" target="_blank" title="支付">支付宝</a></font>； &nbsp; &nbsp;您的应付款金额为: <font color="#ff4e00">￥${currentOrder.cost}</font>
                 </td>
             </tr>
             <tr>

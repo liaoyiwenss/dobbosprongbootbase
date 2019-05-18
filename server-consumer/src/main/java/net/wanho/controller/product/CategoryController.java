@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import net.wanho.pojo.Productcategory;
 import net.wanho.pojo.vo.ProductCategoryVO;
 import net.wanho.service.ProductCategoryService;
+import net.wanho.utils.JedisClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,9 @@ public class CategoryController {
 
     @Reference
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private JedisClient jedisClient;
 
     @RequestMapping("/getcategorylist")
     public String CategoryList(Integer pageno, HttpSession session){
@@ -68,8 +73,10 @@ public class CategoryController {
             category.setName(categoryname);
         }
         productCategoryService.insert(category);
+        jedisClient.del("pclist");
         List<ProductCategoryVO> pclist = productCategoryService.getDomList();
         session.setAttribute("pclist", pclist);
+
 
         return "redirect:/doproductcategory/getcategorylist";
     }
@@ -77,6 +84,7 @@ public class CategoryController {
     @RequestMapping("deletecategory")
     public String deletecategory(Long tid){
         productCategoryService.deleteByPrimaryKey(tid);
+        jedisClient.del("pclist");
         return "redirect:/doproductcategory/getcategorylist";
     }
 }

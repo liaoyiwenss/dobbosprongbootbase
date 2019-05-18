@@ -7,8 +7,14 @@ import net.wanho.pojo.Productcategory;
 import net.wanho.service.ProductCategoryService;
 import net.wanho.service.ProductService;
 import net.wanho.utils.FastDFSClient;
+import net.wanho.utils.JedisClient;
+import net.wanho.utils.JsonUtils;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("doproduct")
@@ -26,6 +33,18 @@ public class ProductController {
 
     @Reference
     private ProductCategoryService productCategoryService;
+
+
+    @Autowired
+    private JmsMessagingTemplate jmsTemplate;
+
+
+    @Autowired
+    private SolrClient solrClient;
+
+
+
+
 
 
     private Logger logger= LoggerFactory.getLogger(ProductController.class);
@@ -46,7 +65,21 @@ public class ProductController {
             session.setAttribute("pcid", productid);
         }
 
-        PageInfo<Product> productPageInfo = productService.selectProductbyEntity(productid,proName,pageno, 5, 4);
+        PageInfo<Product> productPageInfo=null;
+        if(productid!=null)
+        {
+            productPageInfo = productService.selectProductbyEntity(productid,proName,pageno, 5, 4);
+        }else
+        {
+            try {
+                productPageInfo = productService.queryItem(productid,proName,pageno, 5, 4);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SolrServerException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         session.setAttribute("pagehelper",productPageInfo);
 
