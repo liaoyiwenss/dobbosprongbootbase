@@ -14,4 +14,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
 
     List<Map<String,Object>> selectAllPermission();
+
+
+    List<Map<String,Object>> selectcheckedPermission(Long roleid);
 }

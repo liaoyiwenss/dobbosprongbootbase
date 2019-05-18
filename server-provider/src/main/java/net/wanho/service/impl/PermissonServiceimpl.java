@@ -51,4 +51,11 @@ public class PermissonServiceimpl implements PermissonService {
     public List<Map<String,Object>> selectAllPermission(){
         return permissionMapper.selectAllPermission();
     }
+
+    @Override
+    public List<Map<String,Object>> selectRoleandPermission(Long roleid) {
+        return permissionMapper.selectcheckedPermission(roleid);
+    }
+
+
 }

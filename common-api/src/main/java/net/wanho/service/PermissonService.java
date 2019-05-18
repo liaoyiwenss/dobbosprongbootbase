@@ -10,4 +10,7 @@ public interface PermissonService extends BaseService<Permission> {
 
 
     List<Map<String,Object>> selectAllPermission();
+
+
+    public List<Map<String,Object>> selectRoleandPermission(Long roleid);
 }

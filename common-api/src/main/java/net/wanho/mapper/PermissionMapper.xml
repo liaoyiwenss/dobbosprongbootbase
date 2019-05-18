@@ -35,6 +35,16 @@
       tid as id,menuname as name,pid as pId,<include refid="Base_Column_List" />
     from permission
   </select>
+
+
+  <select id="selectcheckedPermission" resultType="map" parameterType="long">
+    SELECT
+      p.tid AS id,menuname AS NAME,pid AS pId, permissionname, ismenu, pid, classname,
+      seq, menuname
+    FROM permission p
+           LEFT JOIN rolepermission rm ON p.tid=rm.permissionid
+    where roleid = #{roleid,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from permission
     where tid = #{tid,jdbcType=BIGINT}

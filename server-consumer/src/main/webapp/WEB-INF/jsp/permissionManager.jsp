@@ -147,23 +147,38 @@
         debugger
 
         // var mynodes=$("#roletable from:nth-of-type("+index+")").serializeObject();
-        var checknode=$(".permissionfrom:nth-of-type("+index+1+")").serializeObject();
+        // var checknode=$(".permissionfrom:nth-of-type("+index+1+")").serializeObject();
         /*var mynodes=$(this).prev().serializeObject();*/
 
+        var checknode;
         var permissions='${permissions}';
 
         var mynode=$.parseJSON(permissions);
 
-        $.each(mynode,function (i, n) {
-            $.each(checknode.id, function(index, value) {
+        $.ajax({
+            "url": path + "/dopermission/queryallPermissonbyRoleid",
+            "type": "post",
+            "data": {"roleid": roleid},
+            "dataType": "Json",
+            async: false,
+            "success": function (result) {
 
-                debugger
-                if(n.tid==value)
-                {
-                    n.checked=true;
-                }
-            })
+                checknode=JSON.parse(result);
+            }
         })
+
+
+
+            $.each(mynode,function (i, n) {
+                $.each(checknode, function(index, value) {
+                    debugger
+                    if(n.tid==value)
+                    {
+                        n.checked=true;
+                    }
+                })
+            })
+
         $.fn.zTree.init($("#treeDemo"), setting, mynode);
         // bgdiv.style.height = $(document).height();
         // setTimeout("CloseDiv_1('MyDiv1','fade1')",1000);
