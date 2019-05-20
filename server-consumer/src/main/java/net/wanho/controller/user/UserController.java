@@ -215,6 +215,7 @@ public class UserController {
         }
         else
         {
+            useru.setTid(user.getTid());
             userService.updateByPrimaryKey(useru);
             Userrole userrole=new Userrole();
             userrole.setRoleid(Long.parseLong(type));

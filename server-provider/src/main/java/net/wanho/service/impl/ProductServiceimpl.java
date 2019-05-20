@@ -241,7 +241,8 @@ public class ProductServiceimpl implements ProductService {
 
     @Override
     public int insert(Product record) {
-        return productMapper.insert(record);
+        productMapper.insert(record);
+        return Integer.parseInt(record.getTid().toString());
     }
 
     @Override

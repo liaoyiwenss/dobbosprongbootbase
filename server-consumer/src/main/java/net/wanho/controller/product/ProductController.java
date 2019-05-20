@@ -108,6 +108,13 @@ public class ProductController {
     @RequestMapping("deleteProduct")
     public String deleteProduct(Long tid){
         productService.deleteByPrimaryKey(tid);
+        try {
+            solrClient.deleteById(String.valueOf(tid));
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/doproduct/getallproduct";
     }
 
@@ -150,6 +157,7 @@ public class ProductController {
         if(action.equals("add"))
         {
                 r = productService.insert(product);
+            jmsTemplate.convertAndSend(destination, r+"");
         }
         if(action.equals("update"))
         {
@@ -165,8 +173,9 @@ public class ProductController {
                     }
                 }
                 r=productService.updateByPrimaryKey(product);
+            jmsTemplate.convertAndSend(destination, product.getTid()+"");
         }
-        jmsTemplate.convertAndSend(destination, product.getTid()+"");
+
             return "redirect:/doproduct/getallproduct";
     }
 
