@@ -145,7 +145,7 @@ public class UserController {
         user.setSalt(salt);
         User user1 = userService.addUser(user);
         session.setAttribute("users",user1);
-        return "redirect:/show/Regist";
+        return "redirect:/show/Login";
     }
 
     @ResponseBody

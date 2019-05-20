@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.context.annotation.Import;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jmx.support.RegistrationPolicy;
 
 @EnableDubbo
@@ -14,6 +15,7 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @Import(FdfsClientConfig.class)
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @EnableCaching
+@EnableJms
 public class ConsumerApplicaiton {
     public static void main(String[] args) {
         SpringApplication.run(ConsumerApplicaiton.class, args);

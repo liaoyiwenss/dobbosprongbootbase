@@ -98,8 +98,6 @@ function checkUserName() {
         appendHtml(omsg, "请输入正确的通行证用户名", "error_prompt");
         flag = false;
     } else {
-
-
         $.ajax({
             "url": path + "/douser/ExistsUsername",
             "type": "post",
@@ -115,21 +113,12 @@ function checkUserName() {
                     odom.style.borderColor = "red";
                     appendHtml(omsg, "用户名已被使用", "error_prompt");
                 }
-
             }
         })
-
-
     }
-
-
     return flag;
 }
-
-
 $("#registerbutton").click(function () {
-
-
     var json = $("#registerfrom").serializeObject();
     var odom = e("username");//输入框DOM对象
     var omsg = e("usernameId");
@@ -141,7 +130,7 @@ $("#registerbutton").click(function () {
         "success": function (result) {
             console.log(result);
             debugger
-            if (result) {
+            if (result=="true") {
                 $("#registerfrom").submit();
             } else {
                 debugger
@@ -150,5 +139,4 @@ $("#registerbutton").click(function () {
             }
         }
     })
-
 })

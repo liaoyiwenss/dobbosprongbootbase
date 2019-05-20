@@ -9,6 +9,8 @@ import net.wanho.service.ProductService;
 import net.wanho.utils.FastDFSClient;
 import net.wanho.utils.JedisClient;
 import net.wanho.utils.JsonUtils;
+import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -56,21 +59,13 @@ public class ProductController {
         {
             pageno=1;
         }
-        session.removeAttribute("pcid");
-        session.removeAttribute("proName");
-        if(proName!=null)
-        {
-            session.setAttribute("proName",proName);
-        }else if(productid!=null) {
-            session.setAttribute("pcid", productid);
-        }
 
         PageInfo<Product> productPageInfo=null;
-        if(productid!=null)
+
+        if(StringUtils.isNotBlank(proName))
         {
-            productPageInfo = productService.selectProductbyEntity(productid,proName,pageno, 5, 4);
-        }else
-        {
+            session.setAttribute("proName",proName);
+            session.removeAttribute("pcid");
             try {
                 productPageInfo = productService.queryItem(productid,proName,pageno, 5, 4);
             } catch (IOException e) {
@@ -78,9 +73,11 @@ public class ProductController {
             } catch (SolrServerException e) {
                 e.printStackTrace();
             }
-
+        }else if(productid!=null) {
+            session.setAttribute("pcid", productid);
+            session.removeAttribute("proName");
+            productPageInfo = productService.selectProductbyEntity(productid,proName,pageno, 5, 4);
         }
-
         session.setAttribute("pagehelper",productPageInfo);
 
         return "redirect:/show/CategoryList";
@@ -149,6 +146,7 @@ public class ProductController {
 //            }
         }
         int r = 0;
+        Destination destination = new ActiveMQQueue("addSolritem.queue");
         if(action.equals("add"))
         {
                 r = productService.insert(product);
@@ -168,6 +166,7 @@ public class ProductController {
                 }
                 r=productService.updateByPrimaryKey(product);
         }
+        jmsTemplate.convertAndSend(destination, product.getTid()+"");
             return "redirect:/doproduct/getallproduct";
     }
 

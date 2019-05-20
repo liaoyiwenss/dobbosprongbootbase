@@ -128,6 +128,10 @@ var path="${pageContext.request.contextPath}";
 		var time = new Date().getTime();
 		document.getElementById("kaptchaImage").src = "/kaptcha?d="+time;
 	}
+    reloadCode();
+
+
+
 
 
 </script>

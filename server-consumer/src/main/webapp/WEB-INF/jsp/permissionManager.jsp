@@ -49,14 +49,6 @@
                     <tr>
                         <td>${temp.rolename}</td>
                         <td>
-                            <form class="permissionfrom" style="display: none" id="">
-                                <c:forEach items="${temp.permissions}" var="permission">
-                                    <input name="id" value="${permission.tid}"/>
-                                    <input name="pid" value="${permission.pid}"/>
-                                    <input name="name" value="${permission.permissionname}"/>
-                                    <input name="open" value="true"/>
-                                </c:forEach>
-                            </form>
                             <a onclick="ShowDiv_1('MyDiv1','fade1','${status.index}','${temp.tid}')">修改</a>
                         </td>
                         <td>
@@ -163,7 +155,7 @@
             async: false,
             "success": function (result) {
 
-                checknode=JSON.parse(result);
+                checknode=result;
             }
         })
 
