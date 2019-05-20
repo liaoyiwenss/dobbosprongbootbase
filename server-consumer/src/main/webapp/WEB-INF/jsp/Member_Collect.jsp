@@ -59,8 +59,12 @@
                             </c:choose>
                         </td>
                         <td>
+
                             <c:choose>
-                                <c:when test="${temp.type==1}">
+                                <c:when test="${temp.roles[0].rolename=='superadmin'}">
+                                    超级管理员
+                                </c:when>
+                                <c:when test="${temp.roles[0].rolename=='admin'}">
                                     管理员
                                 </c:when>
                                 <c:otherwise>

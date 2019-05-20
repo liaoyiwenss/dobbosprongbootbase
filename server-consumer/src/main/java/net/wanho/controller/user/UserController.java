@@ -4,8 +4,10 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import net.wanho.pojo.User;
+import net.wanho.pojo.Userrole;
 import net.wanho.service.*;
 import net.wanho.utils.RegUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -212,8 +215,12 @@ public class UserController {
         }
         else
         {
-            useru.setTid(user.getTid());
             userService.updateByPrimaryKey(useru);
+            Userrole userrole=new Userrole();
+            userrole.setRoleid(Long.parseLong(type));
+            userrole.setUserid(user.getTid());
+            userRoleService.deleteByuserId(user.getTid());
+            userRoleService.insert(userrole);
             session.removeAttribute("user");
         }
 

@@ -43,4 +43,9 @@ public class UserRoleServiceimpl implements UserRoleService {
     public int updateByPrimaryKey(Userrole record) {
         return userroleMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public void deleteByuserId(Long userid) {
+        userroleMapper.deleteByuserId(userid);
+    }
 }

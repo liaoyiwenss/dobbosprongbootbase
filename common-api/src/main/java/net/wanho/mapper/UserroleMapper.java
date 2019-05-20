@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserroleMapper extends BaseMapper<Userrole> {
+
+
+
+   public void deleteByuserId(Long userid);
 }

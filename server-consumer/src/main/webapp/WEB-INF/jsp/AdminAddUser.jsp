@@ -46,6 +46,8 @@
             <br>
             <form action="${pageContext.request.contextPath}/douser/adminaddUser?action=updateUser" method="post" id="userAdd" onsubmit="return checkUser();">
                 <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+
+                    <input type="hidden" name="tid" value="${user.tid}"/>
                     <tr>
                         <td width="135" align="right">用户姓名</td>
                         <td colspan="3" style="font-family:'宋体';">
@@ -96,9 +98,9 @@
                         <td width="135" align="right">用户类型</td>
                         <td>
                             <select name="type">
-                                <option value="2" <c:if test="${user.type==2}">selected="selected"</c:if>>超级管理员</option>
-                                <option value="1" <c:if test="${user.type==1}">selected="selected"</c:if>>管理员</option>
-                                <option value="0" <c:if test="${user.type==0}">selected="selected"</c:if>>普通用户</option>
+                                <option value="1" <c:if test="${user.roles[0].tid==1}">selected="selected"</c:if>>超级管理员</option>
+                                <option value="2" <c:if test="${user.roles[0].tid==2}">selected="selected"</c:if>>管理员</option>
+                                <option value="3" <c:if test="${user.roles[0].tid==3}">selected="selected"</c:if>>普通用户</option>
                             </select>
                         </td>
                     </tr>

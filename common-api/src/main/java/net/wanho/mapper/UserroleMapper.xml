@@ -22,6 +22,10 @@
     delete from userrole
     where tid = #{tid,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByuserId" parameterType="java.lang.Long">
+    delete from userrole
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
   <insert id="insert" parameterType="net.wanho.pojo.Userrole"  useGeneratedKeys="true" keyProperty="tid" keyColumn="tid">
     insert into userrole ( createtime, logicaldelete,
       modifytime, userid, roleid
