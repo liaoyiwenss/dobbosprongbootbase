@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     <div class="c_s_img">
-                        <a href="${ctx}/Product?action=queryProductDeatil&id=${temp.product.tid}"><img src="${ctx}${filepath}${temp.product.filename}" width="73" height="73"/></a>
+                        <a href="${ctx}/doproduct/product?action=queryProductDeatil&tid=${temp.product.tid}"><img src="${ctx}${filepath}${temp.product.filename}" width="73" height="73"/></a>
                     </div>
                         ${temp.product.name}
                 </td>
