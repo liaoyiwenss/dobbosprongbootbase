@@ -57,7 +57,7 @@
         
         
         <ul class="menu_r">
-        <li><a href="${pageContext.request.contextPath}/show/Index">首页</a></li>
+        <li><a href="${pageContext.request.contextPath}">首页</a></li>
         <c:forEach items="${pclist}" var="list" varStatus="i">
         <li style='<c:if test="${fn:length(list.pc.name)>5}">width:100px</c:if>'><a  style='<c:if test="${fn:length(list.pc.name)>5}">width:100px</c:if>' href="${pageContext.request.contextPath}/doproduct/queryproductList?productid=${list.pc.tid}">${list.pc.name}</a>
 				</li>

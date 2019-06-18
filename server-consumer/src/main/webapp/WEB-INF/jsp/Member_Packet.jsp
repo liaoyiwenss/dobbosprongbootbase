@@ -63,7 +63,7 @@
               </a>
             </td>
             <td>
-              <img src="http://192.168.232.128${temp.product.filename}" width="50" height="50"/>
+              <img src="${filepath}${temp.product.filename}" width="50" height="50"/>
             </td>
             <td>${temp.quantity}</td>
             <td>${temp.cost}</td>

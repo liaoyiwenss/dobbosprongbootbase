@@ -49,7 +49,7 @@
         </tr>
         <tr valign="top" height="150">
             <td colspan="6" align="right">
-                <a  href="${pageContext.request.contextPath}/show/Index"><img src="${ctx}/images/buy1.gif" /></a>&nbsp;&nbsp;
+                <a  href="${pageContext.request.contextPath}"><img src="${ctx}/images/buy1.gif" /></a>&nbsp;&nbsp;
                 <c:if test="${sessionScope.cartlist!=null && sessionScope.cartlist.sum>0}">
                     <a href="javascript:void(0);" onclick="settlement2();"><img src="${ctx}/images/buy2.gif" /></a>
                 </c:if>

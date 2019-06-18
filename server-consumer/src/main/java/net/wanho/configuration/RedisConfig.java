@@ -12,7 +12,7 @@ public class RedisConfig {
 
     @Bean
     public JedisPool jedisPool(){
-        JedisPool jedisPool=new JedisPool("192.168.232.128",6379);
+        JedisPool jedisPool=new JedisPool("129.211.121.171",6379);
         return jedisPool;
     }
 

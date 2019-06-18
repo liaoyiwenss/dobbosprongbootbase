@@ -77,7 +77,7 @@
                 <td><input type="text" name="stock" value="${product.stock}"/></td>
               </tr>
               <tr height="45">
-              	<td> <img src="http://192.168.232.128${product.filename}" width="50" height="50"/></td>
+              	<td> <img src="${filepath}${product.filename}" width="50" height="50"/></td>
                 <td>上传图片<input type="file" name="picpath" /></td>
               </tr>
               <tr height="50">

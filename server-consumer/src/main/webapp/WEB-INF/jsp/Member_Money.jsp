@@ -46,7 +46,7 @@
             <td>${temp.name}</td>
             <td>
               <a href=" ${pageContext.request.contextPath}/doproduct/product?action=queryProductDeatil&tid=${temp.tid}" target="_blank">
-                  <img src="http://192.168.232.128${temp.filename}" width="50" height="50"/>
+                  <img src="${filepath}${temp.filename}" width="50" height="50"/>
               </a>
             </td>
             <td>${temp.stock}</td>

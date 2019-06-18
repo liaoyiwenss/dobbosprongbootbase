@@ -52,7 +52,7 @@ public class UserController {
         user.setPassword(password);
         User users = userService.queryexUser(user);
         session.setAttribute("users",users);
-        return "redirect:/show/Index";
+        return "redirect:/";
     }
     @RequestMapping("/selectalluser")
     public String selectalluser(HttpSession session, User user)

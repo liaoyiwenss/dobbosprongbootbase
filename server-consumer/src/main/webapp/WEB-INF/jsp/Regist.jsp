@@ -42,7 +42,7 @@
 <!--Begin Login Begin-->
 <div class="log_bg">	
     <div class="top">
-        <div class="logo"><a href="${pageContext.request.contextPath}/show/Index"><img style="height: 55px" src="${pageContext.request.contextPath}/images/logo.png" /></a></div>
+        <div class="logo"><a href="${pageContext.request.contextPath}"><img style="height: 55px" src="${pageContext.request.contextPath}/images/logo.png" /></a></div>
     </div>
 	<div class="regist">
     	<div class="log_img"><img src="${pageContext.request.contextPath}/images/l_img.png" width="611" height="425" /></div>

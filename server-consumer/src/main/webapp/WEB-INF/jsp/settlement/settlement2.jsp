@@ -22,7 +22,7 @@
                 <tr>
                     <td>
                         <div class="c_s_img">
-                            <img src="http://192.168.232.128${temp.product.filename}" width="73" height="73"/>
+                            <img src="${filepath}${temp.product.filename}" width="73" height="73"/>
                         </div>
                             ${temp.product.name}
                     </td>
