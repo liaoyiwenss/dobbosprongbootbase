@@ -23,7 +23,7 @@ public class FastDfsController {
             mappingJacksonValue.setJsonpFunction(callback);
             return mappingJacksonValue;
         }
-        return JsonResult.ok();
+        return JsonResult.ok(bol);
     }
     @RequestMapping("addfile")
     @ResponseBody
@@ -37,7 +37,7 @@ public class FastDfsController {
                 mappingJacksonValue.setJsonpFunction(callback);
                 return mappingJacksonValue;
             }
-            return JsonResult.ok();
+            return JsonResult.ok(str);
         }
         //        判断是否为跨域请求，如果跨域需要对结果进行转换
         return JsonResult.build(400,"未上传图片");
