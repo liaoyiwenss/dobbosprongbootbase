@@ -7,8 +7,6 @@ import net.wanho.pojo.Productcategory;
 import net.wanho.service.ProductCategoryService;
 import net.wanho.service.ProductService;
 import net.wanho.utils.FastDFSClient;
-import net.wanho.utils.JedisClient;
-import net.wanho.utils.JsonUtils;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;

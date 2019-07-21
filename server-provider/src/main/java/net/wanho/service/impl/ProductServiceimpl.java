@@ -80,6 +80,7 @@ public class ProductServiceimpl implements ProductService {
 //        搜索框中的值
         if (StringUtils.isNotBlank(proname)) {
             solrQuery.setQuery("product_keywords:" + proname);
+
         }
 
 //        商品类目
