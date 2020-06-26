@@ -7,7 +7,7 @@ dubbo:
     name: server-consumer
     # zookeeper地址，用于从中获取注册的服务
   registry:
-    address: zookeeper://129.211.121.171:2181
+    address: zookeeper://122.51.203.76:2181
   protocol:
     # dubbo协议，固定写法
     name: dubbo
